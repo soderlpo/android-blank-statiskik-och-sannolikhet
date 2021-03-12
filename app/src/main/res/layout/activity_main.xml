@@ -65,4 +65,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/abc_vector_test" />
 
+    <TextView
+        android:id="@+id/textViewMA"
+        android:layout_width="382dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="44dp"
+        android:gravity="right"
+        android:text="Glidande värde"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOtherActivity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

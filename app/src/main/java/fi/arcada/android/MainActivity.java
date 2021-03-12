@@ -9,11 +9,15 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
 
     TextView myText;
     TextView textSetting;
+
 
     //1. Deklarera ett SharedPreferences-objekt
     SharedPreferences prefs;
@@ -23,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //movingAVG();
+
         myText = findViewById(R.id.editTextView);
         textSetting = findViewById(R.id.textSetting);
+
 
         //2. Instansiera prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -38,6 +45,40 @@ public class MainActivity extends AppCompatActivity {
         textSetting.setText(
                 prefs.getString("textSetting", "def val")
         );
+
+    }
+
+    public void movingAvg(){
+        //För exemplets skull deklarerar vi nu här
+        TextView textViewMA;
+        textViewMA = findViewById(R.id.textViewMA);
+            //vår datamängd 0, 1, 2, 3, osv.
+        int[] dataset = {10, 22, 29, 2, 20, 41, 10, 33, 12, 24};
+            //arrayList för glidande medelvärde
+        ArrayList<Integer> ma= new ArrayList<>();
+        ArrayList<Integer> betterMa =new ArrayList<>();
+        int window = 4; //fönsterstorlek
+
+        for (int i = window-1; i < dataset.length ; i++) {
+            ma.add((dataset[i]
+                    +dataset[i-1]
+                    +dataset[i-2]
+                    +dataset[i-3])/4);
+        }
+        for (int i = window-1; i < dataset.length ; i++) {
+            int sum = 0;
+
+            for (int j = 0; j < window; j++) {
+                sum += dataset[i-j];
+            }
+            betterMa.add(sum / window);
+        }
+
+        textViewMA.setText(String.format("%s\n%s\n%s",
+                Arrays.toString(dataset),
+                ma.toString(),
+                betterMa.toString()
+        ));
 
     }
     public void buttonClick(View view){
